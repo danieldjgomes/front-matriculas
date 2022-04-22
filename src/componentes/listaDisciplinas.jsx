@@ -84,7 +84,7 @@ export function ListaDisciplinas(){
       //Faz get Disciplinas
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
-          setBaseurl('ec2-3-94-85-236.compute-1.amazonaws.com')
+          setBaseurl('ec2-3-94-85-236.compute-1.amazonaws.com:8071')
             try { 
                   if (data.length == 0){
                     const response = await fetch('https://' + baseurl + '/api/disciplina');
