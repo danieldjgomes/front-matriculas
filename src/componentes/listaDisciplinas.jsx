@@ -87,7 +87,11 @@ export function ListaDisciplinas(){
          
             try { 
                   if (data.length == 0){
-                    const response = await fetch('http://ec2-3-94-85-236.compute-1.amazonaws.com:8071/api/disciplina');
+                    const response = await fetch('http://ec2-3-94-85-236.compute-1.amazonaws.com:8071/api/disciplina',
+                    {
+                      method : 'GET',
+                      headers : {"Content-Type": "application/json"}
+                    });
                     const json = await response.json()
                     setData(json)
                   }

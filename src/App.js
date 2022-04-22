@@ -84,6 +84,7 @@ function enableScroll() {
 
   return (
     <div className="App">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/> 
 
 <div className='justify-content-center'>
 <Modal show={orientation == "PORTRAIT" ? true : false} fullscreen={true} className="w-100">
