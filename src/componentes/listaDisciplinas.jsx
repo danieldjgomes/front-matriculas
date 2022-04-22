@@ -84,10 +84,10 @@ export function ListaDisciplinas(){
       //Faz get Disciplinas
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
-          setBaseurl(process.env.BASE_URL_API)
+          setBaseurl('ec2-3-94-85-236.compute-1.amazonaws.com')
             try { 
                   if (data.length == 0){
-                    const response = await fetch('https://' + baseurl+ '/api/disciplina');
+                    const response = await fetch('https://' + baseurl + '/api/disciplina');
                     const json = await response.json()
                     setData(json)
                   }
@@ -190,7 +190,7 @@ export function ListaDisciplinas(){
               <>
         
         <div className='font-size'>
-
+              
         <div className="container_2 d-flex w-75 justify-content-center p-3 mt-5">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="row">
