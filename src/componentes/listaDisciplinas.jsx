@@ -85,7 +85,7 @@ export function ListaDisciplinas(){
 
             try { 
                   if (data.length == 0){
-                    const response = await fetch({baseurl},'/api/disciplina');
+                    const response = await fetch(baseurl + '/api/disciplina');
                     const json = await response.json()
                     setData(json)
                   }
@@ -112,7 +112,7 @@ export function ListaDisciplinas(){
         myElement.innerHTML = base +  '   <br/><span class="badge bg-warning text-dark">ENVIANDO</span>'
         // console.log(myElement.innerHTML)
 
-        fetch({baseurl},'/api/alerta', {
+        fetch(baseurl + '/api/alerta', {
           method : 'POST',
           headers : {"Content-Type": "application/json"},
           body: str
