@@ -87,7 +87,7 @@ export function ListaDisciplinas(){
           setBaseurl(process.env.BASE_URL_API)
             try { 
                   if (data.length == 0){
-                    const response = await fetch('http://' + baseurl+ '/api/disciplina');
+                    const response = await fetch('https://' + baseurl+ '/api/disciplina');
                     const json = await response.json()
                     setData(json)
                   }
@@ -114,7 +114,7 @@ export function ListaDisciplinas(){
         myElement.innerHTML = base +  '   <br/><span class="badge bg-warning text-dark">ENVIANDO</span>'
         // console.log(myElement.innerHTML)
 
-        fetch(baseurl + '/api/alerta', {
+        fetch('https://' + baseurl+ '/api/disciplina', {
           method : 'POST',
           headers : {"Content-Type": "application/json"},
           body: str
