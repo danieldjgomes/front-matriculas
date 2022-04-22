@@ -20,7 +20,7 @@ export function ListaDisciplinas(){
       const [email, setEmail] = useState('');
       const [showModal, setShow] = useState(false);
       const [emailValid, setEmailValid] = useState(false);
-      const baseurl = process.env.BASE_URL_API
+      const [baseurl,setBaseurl] = useState('');
 
       var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
@@ -79,13 +79,15 @@ export function ListaDisciplinas(){
         }
       }
 
+      
+
       //Faz get Disciplinas
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
-
+          setBaseurl(process.env.BASE_URL_API)
             try { 
                   if (data.length == 0){
-                    const response = await fetch(baseurl + '/api/disciplina');
+                    const response = await fetch('http://' + baseurl+ '/api/disciplina');
                     const json = await response.json()
                     setData(json)
                   }
