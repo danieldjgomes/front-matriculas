@@ -84,10 +84,10 @@ export function ListaDisciplinas(){
       //Faz get Disciplinas
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
-          setBaseurl('ec2-3-94-85-236.compute-1.amazonaws.com:8071')
+         
             try { 
                   if (data.length == 0){
-                    const response = await fetch('https://' + baseurl + '/api/disciplina');
+                    const response = await fetch('http://ec2-3-94-85-236.compute-1.amazonaws.com:8071/api/disciplina');
                     const json = await response.json()
                     setData(json)
                   }
@@ -114,7 +114,7 @@ export function ListaDisciplinas(){
         myElement.innerHTML = base +  '   <br/><span class="badge bg-warning text-dark">ENVIANDO</span>'
         // console.log(myElement.innerHTML)
 
-        fetch('https://' + baseurl+ '/api/disciplina', {
+        fetch('http://ec2-3-94-85-236.compute-1.amazonaws.com:8071/api/alerta', {
           method : 'POST',
           headers : {"Content-Type": "application/json"},
           body: str
