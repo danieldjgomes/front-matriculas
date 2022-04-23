@@ -87,7 +87,7 @@ export function ListaDisciplinas(){
          
             try { 
                   if (data.length == 0){
-                    const response = await fetch('https://matricula-webapi-dev.herokuapp.com/api/disciplina',
+                    const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
                     {
                       method : 'GET',
                       headers : {"Content-Type": "application/json"}
@@ -118,7 +118,7 @@ export function ListaDisciplinas(){
         myElement.innerHTML = base +  '   <br/><span class="badge bg-warning text-dark">ENVIANDO</span>'
         // console.log(myElement.innerHTML)
 
-        fetch('https://matricula-webapi-dev.herokuapp.com/api/alerta', {
+        fetch('https://ufabc-track.herokuapp.com/api/alerta', {
           method : 'POST',
           headers : {"Content-Type": "application/json"},
           body: str
