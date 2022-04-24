@@ -21,6 +21,7 @@ export function ListaDisciplinas(){
       const [showModal, setShow] = useState(false);
       const [emailValid, setEmailValid] = useState(false);
       const [baseurl,setBaseurl] = useState('');
+      const [resultadoChamada, setResultadoChamada] = useState('');
 
       var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
@@ -85,19 +86,58 @@ export function ListaDisciplinas(){
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
          
-            try { 
+            // try { 
+            //       if (data.length == 0){
+            //         const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
+            //         {
+            //           method : 'GET',
+            //           headers : {"Content-Type": "application/json"}
+            //         }).then();
+            //         const json = await response.json()
+            //         setData(json)
+            //       }
+            //           } catch (error) {
+            //       console.log("error", error);
+            //           }
+
+                  
                   if (data.length == 0){
                     const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
                     {
                       method : 'GET',
                       headers : {"Content-Type": "application/json"}
-                    });
-                    const json = await response.json()
-                    setData(json)
+                    })
+                    .then((response) => response.json())
+                    .then(response => setData(response))
+                    .catch(()=> setResultadoChamada('OFF'));
+                    return () => {};
                   }
-                      } catch (error) {
-                  console.log("error", error);
-                      }
+                      
+
+
+
+
+                        // if (data.length == 0){
+                        //   const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
+                        //   {
+                        //     method : 'GET',
+                        //     headers : {"Content-Type": "application/json"}
+                        //   }).then(async response =>{
+
+                        //     if (response.status ==200){
+                        //       const json = await response.json()
+                        //       setData(json)
+                        //     }
+                        //     else{
+                        //      console.log("Fora do periodo de matricula")
+                        //     }
+
+                    
+                        //     // console.log(p.json)
+                        //   }).catch((e)=>console.log(e));
+                        //   // const json = await response.json()
+                        //   // setData(json)
+                        // }
           },[]);
 
 
@@ -189,64 +229,11 @@ export function ListaDisciplinas(){
             setDisciplinas(disciplinasFiltradas)
              
           },[data,periodo,campus,nome]);
-       
+
+
+          function table(){
             return (
               <>
-        
-        <div className='font-size'>
-              
-        <div className="container_2 d-flex w-75 justify-content-center p-3 mt-5">
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="row">
-            <label>Nome Disciplina</label>
-              <input type="text" className="form-control"  value={nome}  onChange={(e) => handleChange(e)} />  
-            </div>
-              
-            <div className="row">
-            
-              <div className="col">
-              <label>Periodo</label>
-                <select className="form-control" id="periodo" onChange={(e) => handlePeriodo(e)} defaultValue="Indiferente" >
-                  <option>Matutino</option>
-                  <option>Vespertino</option>
-                  <option>Noturno</option>
-                  <option selected>Indiferente</option>
-                </select>
-          
-              </div> 
-            
-              <div className="col">
-              <label>Campus</label>
-              <div className="form-group">
-                <select className="form-control" id="campus" onChange={(e) => handleCampus(e)} defaultValue="Indiferente">
-                  <option>São Bernardo do Campo</option>
-                  <option>Santo André</option>
-                  <option>Indiferente</option>
-                </select>
-              </div> 
-              </div> 
-        
-        </div>
-          </form>
-
-      </div>
-
-              <div className="d-flex justify-content-center">
-              <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom" data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
-              <thead>
-                    <tr>
-                      <th className="p-3 cursor-pointer"></th>
-                      <th className='disciplina'>Disciplina</th>
-                      <th>Período</th>
-                      <th>Vagas Liberadas</th>
-                      {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
-                      <th>Vagas Disponiveis</th>
-                      {width >= breakpoint ? <th>Créditos</th> : <></>}
-                      {width >= breakpoint ? <th>Códigos</th> : <></>}
-                      <th>Campus</th>
-                    </tr>
-              </thead>
-                  <tbody>
   
                         {disciplinas.map(item => 
                           (<tr key={item.identificadorUFABC}>
@@ -261,10 +248,73 @@ export function ListaDisciplinas(){
                                 <td>{campusResumido(item.campus)}</td> 
                           </tr>)
                           )}
-                          </tbody>
-              </table>
-              </div>
+                  </>
+            )
+          }
+       
+            return (
+              <>
+        
+        <div className='font-size'>
+              
+        <div className="container_2 d-flex w-75 justify-content-center p-3 mt-5">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="row">
+            <label className='text-center'>Nome Disciplina</label>
+              <input type="text" className="form-control"  value={nome}  onChange={(e) => handleChange(e)} />  
+            </div>
+              
+            <div className="row">
             
+              <div className="col text-center">
+              <label className='text-center'>Periodo</label>
+                <select className="form-control text-center" id="periodo" onChange={(e) => handlePeriodo(e)} defaultValue="Indiferente" >
+                  <option>Matutino</option>
+                  <option>Vespertino</option>
+                  <option>Noturno</option>
+                  <option selected>Indiferente</option>
+                </select>
+          
+              </div> 
+            
+              <div className="col text-center">
+              <label className=''>Campus</label>
+              <div className="form-group ">
+                <select className="form-control text-center" id="campus" onChange={(e) => handleCampus(e)} defaultValue="Indiferente">
+                  <option>São Bernardo do Campo</option>
+                  <option>Santo André</option>
+                  <option>Indiferente</option>
+                </select>
+              </div> 
+              </div> 
+        
+        </div>
+          </form>
+
+      </div>
+              
+              <div className="d-flex justify-content-center">
+              <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom" data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
+              <thead>
+                    <tr>
+                      <th className="p-3 cursor-pointer"></th>
+                      <th className='disciplina position-sticky'>Disciplina</th>
+                      <th>Período</th>
+                      <th>Vagas Liberadas</th>
+                      {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
+                      <th>Vagas Disponiveis</th>
+                      {width >= breakpoint ? <th>Créditos</th> : <></>}
+                      {width >= breakpoint ? <th>Códigos</th> : <></>}
+                      <th>Campus</th>
+                    </tr>
+              </thead>
+              <tbody>
+              {resultadoChamada != 'OFF' ? table() : ''}
+              </tbody>
+              </table>
+              
+              </div>
+              {resultadoChamada == 'OFF' ? <h1 className='text-center w-100'>Fora do periodo de matrícula</h1> : ''}
               <div className={quantidadeSelecionados.size > 0 ? "container-bottom-email row" : "container-bottom-email row d-none"}>
                     <div className="col d-flex flex-row justify-content-center mt-2">
                             <form onSubmit={e => e.preventDefault()}>
