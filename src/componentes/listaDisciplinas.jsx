@@ -289,7 +289,7 @@ export function ListaDisciplinas(){
               <label className='text-center'>Periodo</label>
                 <select className="form-control text-center" id="periodo" onChange={(e) => handlePeriodo(e)} defaultValue="Indiferente" >
                   <option>Matutino</option>
-                  <option>Vespertino</option>
+                  {/* <option>Vespertino</option> */}
                   <option>Noturno</option>
                   <option selected>Indiferente</option>
                 </select>
