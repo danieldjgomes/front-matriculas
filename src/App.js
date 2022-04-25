@@ -106,8 +106,17 @@ function enableScroll() {
             </Modal>
             </div>
           <ListaDisciplinas/>
-          
+          <footer class="bg-light text-center text-lg-start">
+              
+              <div class="text-center p-4">
+                <div>Feito em 2022</div>
+                <a class="text-dark" href="https://www.linkedin.com/in/danieldjgomes/">Daniel Gomes</a>
+              </div>
+
+            </footer>          
     </div>
+
+
   );
 }
 export default App;

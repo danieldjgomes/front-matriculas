@@ -8,6 +8,12 @@ import closeSVG from '../files/svg/close.svg'
 
 import loadSVG from '../files/svg/loading.svg'
 
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 
 export function ListaDisciplinas(){
 
@@ -209,10 +215,7 @@ export function ListaDisciplinas(){
 
         
       })
-      // 
 
-
-      // handleClose()
       }    
 
       //Cria Map com checkbox e id das disciplinas
@@ -255,9 +258,11 @@ export function ListaDisciplinas(){
 
 
           function table(){
+            if (disciplinas.size > 0){
+              
             return (
               <>
-                        {disciplinas.map(item => 
+                        { disciplinas.map(item => 
                           (<tr key={item.identificadorUFABC}>
                                 <td><input type="checkbox" checked={checkedState.get(item.identificadorUFABC)[0]} id={"checkbox_"+item.identificadorUFABC} className="plus-minus" value={item.identificadorUFABC} onChange={() => handleCheck(item.identificadorUFABC)}/></td>
                                 <td className="text-start text-wrap">{item.nomeDisciplina.substring(0, item.nomeDisciplina.indexOf('-'))}</td>
@@ -272,6 +277,7 @@ export function ListaDisciplinas(){
                           )}
                   </>
             )
+                          }
           }
        
             return (
@@ -337,7 +343,7 @@ export function ListaDisciplinas(){
               </table>
               
               </div>
-              <div className='d-flex justify-content-center'>
+              <div className='d-flex justify-content-center '>
               {resultadoChamada == '' ? <img src={loadSVG} id='loading-icon'/> : ''}
               {resultadoChamada == 'OFF' ? <h1 className='text-center w-100'>Fora do periodo de matrícula</h1> : ''}
               </div>
@@ -354,7 +360,12 @@ export function ListaDisciplinas(){
                       </div>       
               </div>
 
+              
+                
               </div>
+
+
+              
                   <Modal show={showModal} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Confirme as disciplinas</Modal.Title>
@@ -375,6 +386,10 @@ export function ListaDisciplinas(){
               </Button>
             </Modal.Footer>
           </Modal>
+
+
+
+
               </>
               
               );
