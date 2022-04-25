@@ -5,7 +5,7 @@ import './estilo/disciplinas.css'
 import nextSVG from '../files/svg/next.svg';
 import { Modal, Button } from "react-bootstrap";
 import closeSVG from '../files/svg/close.svg'
-
+import logoSCG from '../files/svg/logo.svg'
 export function ListaDisciplinas(){
 
       const breakpoint = 1024;
@@ -234,7 +234,6 @@ export function ListaDisciplinas(){
           function table(){
             return (
               <>
-  
                         {disciplinas.map(item => 
                           (<tr key={item.identificadorUFABC}>
                                 <td><input type="checkbox" checked={checkedState.get(item.identificadorUFABC)[0]} id={"checkbox_"+item.identificadorUFABC} className="plus-minus" value={item.identificadorUFABC} onChange={() => handleCheck(item.identificadorUFABC)}/></td>
@@ -255,7 +254,12 @@ export function ListaDisciplinas(){
             return (
               <>
         
-        <div className='font-size'>
+        <div className='font-size j'>
+        <nav class="navbar bg-light justify-content-center p-0">
+          <a class="navbar-brand" href="#">
+            <img src={logoSCG} width="150" height="80"/>
+          </a>
+        </nav>
               
         <div className="container_2 d-flex w-75 justify-content-center p-3 mt-5">
           <form onSubmit={(e) => e.preventDefault()}>
@@ -296,10 +300,10 @@ export function ListaDisciplinas(){
               <div className="d-flex justify-content-center">
               <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom" data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
               <thead>
-                    <tr>
+                    <tr className='position-sticky'>
                       <th className="p-3 cursor-pointer"></th>
                       <th className='disciplina position-sticky'>Disciplina</th>
-                      <th>Período</th>
+                      <th className='position-sticky'>Período</th>
                       <th>Vagas Liberadas</th>
                       {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
                       <th>Vagas Disponiveis</th>
