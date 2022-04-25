@@ -253,13 +253,13 @@ export function ListaDisciplinas(){
                           (<tr key={item.identificadorUFABC}>
                                 <td><input type="checkbox" checked={checkedState.get(item.identificadorUFABC)[0]} id={"checkbox_"+item.identificadorUFABC} className="plus-minus" value={item.identificadorUFABC} onChange={() => handleCheck(item.identificadorUFABC)}/></td>
                                 <td className="text-start text-wrap">{item.nomeDisciplina.substring(0, item.nomeDisciplina.indexOf('-'))}</td>
-                                <td>{item.periodo}</td>
-                                {width >= breakpoint ? <td>{item.vagasDisponibilizadas}</td> : <></>}
-                                <td>{item.vagasIngressantes}</td>
-                                <td>{item.vagasDisponiveis}</td>
-                                {width >= breakpoint ? <td>{item.creditos}</td> : <></>}
-                                {width >= breakpoint ? <td>{item.codigo}</td>   : <></>} 
-                                <td>{campusResumido(item.campus)}</td> 
+                                <td className='text-center'>{item.periodo}</td>
+                                {width >= breakpoint ? <td className='text-center'>{item.vagasDisponibilizadas}</td> : <></>}
+                                <td className='text-center'>{item.vagasIngressantes}</td>
+                                <td className='text-center'>{item.vagasDisponiveis}</td>
+                                {width >= breakpoint ? <td className='text-center'>{item.creditos}</td> : <></>}
+                                {width >= breakpoint ? <td className='text-center'>{item.codigo}</td>   : <></>} 
+                                <td className='text-center'>{campusResumido(item.campus)}</td> 
                           </tr>)
                           )}
                   </>
@@ -313,11 +313,11 @@ export function ListaDisciplinas(){
       </div>
               
               <div className="d-flex justify-content-center">
-              <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom" data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
-              <thead>
-                    <tr className='position-sticky'>
+              <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom " data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
+              <thead className="sticky-top bg-white border-black">
+                    <tr>
                       <th className="p-3 cursor-pointer"></th>
-                      <th className='disciplina position-sticky'>Disciplina</th>
+                      <th className='disciplina'>Disciplina</th>
                       <th className='position-sticky'>Período</th>
                       <th>Vagas Liberadas</th>
                       {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
