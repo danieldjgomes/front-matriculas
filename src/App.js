@@ -3,7 +3,7 @@ import React, { useState, useEffect} from 'react';
 import { ListaDisciplinas } from './componentes/listaDisciplinas';
 import turnSVG from './files/svg/turn.svg';
 import turnPCSVG from './files/svg/turn-pc.svg';
-
+import logoSCG from './files/svg/logo.svg'
 import { Modal } from "react-bootstrap";
 
 function App() {
@@ -84,6 +84,12 @@ function enableScroll() {
 
   return (
     <div className="App">
+
+<nav class="navbar bg-light justify-content-center p-0">
+          <a class="navbar-brand" href="#">
+            <img src={logoSCG} width="150" height="80"/>
+          </a>
+        </nav>
 
 <div className='justify-content-center'>
 <Modal show={orientation == "PORTRAIT" ? true : false} fullscreen={true} className="w-100">

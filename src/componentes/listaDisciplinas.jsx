@@ -5,7 +5,7 @@ import './estilo/disciplinas.css'
 import nextSVG from '../files/svg/next.svg';
 import { Modal, Button } from "react-bootstrap";
 import closeSVG from '../files/svg/close.svg'
-import logoSCG from '../files/svg/logo.svg'
+
 import loadSVG from '../files/svg/loading.svg'
 
 
@@ -114,10 +114,18 @@ export function ListaDisciplinas(){
 
                   
                   if (data.length == 0){
+                    const controller = new AbortController()
+
+                    // 5 second timeout:
+                    const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+
                     const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
                     {
+                      signal: controller.signal,
                       method : 'GET',
-                      headers : {"Content-Type": "application/json"}
+                      headers : {"Content-Type": "application/json"},
+                      
                     })
                     .then((response) => response.json())
                     .then(response => {
@@ -270,11 +278,7 @@ export function ListaDisciplinas(){
               <>
         
         <div className='font-size j'>
-        <nav class="navbar bg-light justify-content-center p-0">
-          <a class="navbar-brand" href="#">
-            <img src={logoSCG} width="150" height="80"/>
-          </a>
-        </nav>
+
               
         <div className="container_2 d-flex w-75 justify-content-center p-3 mt-5">
           <form onSubmit={(e) => e.preventDefault()}>
