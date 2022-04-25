@@ -6,6 +6,9 @@ import nextSVG from '../files/svg/next.svg';
 import { Modal, Button } from "react-bootstrap";
 import closeSVG from '../files/svg/close.svg'
 import logoSCG from '../files/svg/logo.svg'
+import loadSVG from '../files/svg/loading.svg'
+
+
 export function ListaDisciplinas(){
 
       const breakpoint = 1024;
@@ -80,6 +83,15 @@ export function ListaDisciplinas(){
         }
       }
 
+      React.useEffect(async () => {
+        if(resultadoChamada != ''){
+          let loading = document.getElementById("loading-icon")
+          loading.className  = "d-none"          
+        }
+
+      }
+      ,[resultadoChamada])
+
       
 
       //Faz get Disciplinas
@@ -108,7 +120,10 @@ export function ListaDisciplinas(){
                       headers : {"Content-Type": "application/json"}
                     })
                     .then((response) => response.json())
-                    .then(response => setData(response))
+                    .then(response => {
+                      setData(response)
+                      setResultadoChamada('OK')
+                    })
                     .catch(()=> setResultadoChamada('OFF'));
                     return () => {};
                   }
@@ -318,7 +333,11 @@ export function ListaDisciplinas(){
               </table>
               
               </div>
+              <div className='d-flex justify-content-center'>
+              {resultadoChamada == '' ? <img src={loadSVG} id='loading-icon'/> : ''}
               {resultadoChamada == 'OFF' ? <h1 className='text-center w-100'>Fora do periodo de matrícula</h1> : ''}
+              </div>
+              
               <div className={quantidadeSelecionados.size > 0 ? "container-bottom-email row" : "container-bottom-email row d-none"}>
                     <div className="col d-flex flex-row justify-content-center mt-2">
                             <form onSubmit={e => e.preventDefault()}>
