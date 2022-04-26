@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+import logoSVG from '../files/svg/logo.svg'
 
-export class HeaderTrack extends Component{
+export function HeaderTrack(){ 
 
-    render() {
         return (
             <>
-        <nav class="bg-dark">
-        <a class="" href="#">
-            <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" class="align-top" alt=""/>
-            Bootstrap
-        </a>
-        </nav>
+            <nav class="navbar bg-light justify-content-center p-0">
+            <a class="navbar-brand" href="#">
+              <img src={logoSVG} width="150" height="80"/>
+            </a>
+          </nav>
             </>
         )
-    }
 
 }

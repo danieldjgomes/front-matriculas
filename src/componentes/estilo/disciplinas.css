@@ -176,3 +176,9 @@ input[type=checkbox]:checked:after {
   width:100vw;
   height:100vh;
   background-color:#000}
+
+  .botao-cancelar{
+    width: 250px;
+    background-color: #003E1F;
+    cursor: pointer;
+  }

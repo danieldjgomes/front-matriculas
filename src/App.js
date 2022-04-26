@@ -3,8 +3,17 @@ import React, { useState, useEffect} from 'react';
 import { ListaDisciplinas } from './componentes/listaDisciplinas';
 import turnSVG from './files/svg/turn.svg';
 import turnPCSVG from './files/svg/turn-pc.svg';
-import logoSCG from './files/svg/logo.svg'
+
 import { Modal } from "react-bootstrap";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate
+} from "react-router-dom";
+import { HeaderTrack } from './componentes/HeaderTrack';
+import { CancelarAlerta } from './componentes/CancelarAlerta';
 
 function App() {
 
@@ -85,11 +94,7 @@ function enableScroll() {
   return (
     <div className="App">
 
-<nav class="navbar bg-light justify-content-center p-0">
-          <a class="navbar-brand" href="#">
-            <img src={logoSCG} width="150" height="80"/>
-          </a>
-        </nav>
+    <HeaderTrack></HeaderTrack>
 
 <div className='justify-content-center'>
 <Modal show={orientation == "PORTRAIT" ? true : false} fullscreen={true} className="w-100">
@@ -105,7 +110,16 @@ function enableScroll() {
             </Modal.Footer>
             </Modal>
             </div>
-          <ListaDisciplinas/>
+
+
+          <Router>
+            <Routes>
+                <Route path="/" element={<ListaDisciplinas/>}/>
+                <Route path="/cancelamento/:id" element={<CancelarAlerta/>}/>
+                <Route path="*" element={<Navigate replace to="/"/>}/>
+            </Routes>
+          </Router>
+
           <footer class="bg-light text-center text-lg-start">
               
               <div class="text-center p-4">
