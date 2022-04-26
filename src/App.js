@@ -89,6 +89,11 @@ function enableScroll() {
   window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
 }
 
+useEffect(() => {
+  document.title = "UFABC Track"
+}, [])
+
+
 
 
   return (
