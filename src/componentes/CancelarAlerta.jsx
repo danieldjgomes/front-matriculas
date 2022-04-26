@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+    Router,
     useParams
   } from "react-router-dom";
 
@@ -23,13 +24,25 @@ import {
     
   }
 
+  function getDisciplona(id){
 
+    fetch('https://ufabc-track.herokuapp.com/api/alerta/' + id, {
+      method : 'GET',
+      headers : {"Content-Type": "application/json"},
+    }).then((p)=> {
+        if(p.status==200){
+        }
+        if(p.status==500){
+        }
+    })
+    .catch(()=>{
+        console.log("Erro")
+    })
+    
+  }
 
-export function CancelarAlerta() {
-
-    let {id} = useParams();
-
-    return(
+  function corpoCancelamento(){
+      return (
 
         <div className='d-flex justify-content-center'>
         
@@ -45,20 +58,41 @@ export function CancelarAlerta() {
             </h3>
 
             <div className='justify-content-center'>
-            <div className='text-white p-3 rounded botao-cancelar' onClick={() => postCancelar(id)}>
+            {/* <div className='text-white p-3 rounded botao-cancelar' onClick={() => postCancelar(id)}>
                 <h4>
                     Cancelar notificação
                 </h4>
 
-            </div>
+            </div> */}
             </div>
             </div>
 
             
-            {id}
+            {/* {id} */}
         </div>
 
         </div>
-    )
-    
+
+      )
+  }
+
+
+
+
+
+export function CancelarAlerta() {
+
+    // let {id} = useParams();
+
+    return(
+       
+        <div>
+            
+            {/* {true ? <corpoCancelamento/> : <NaoEncontrado/>} */}
+           
+        </div>
+      
+        
+
+        );
 }

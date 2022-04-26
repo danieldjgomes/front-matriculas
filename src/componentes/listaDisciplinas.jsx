@@ -258,7 +258,7 @@ export function ListaDisciplinas(){
 
 
           function table(){
-            if (disciplinas.size > 0){
+           
               
             return (
               <>
@@ -277,7 +277,7 @@ export function ListaDisciplinas(){
                           )}
                   </>
             )
-                          }
+
           }
        
             return (
@@ -339,6 +339,7 @@ export function ListaDisciplinas(){
               </thead>
               <tbody>
               {resultadoChamada != 'OFF' ? table() : ''}
+              {table()}
               </tbody>
               </table>
               
