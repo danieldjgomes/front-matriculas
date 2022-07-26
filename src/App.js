@@ -17,36 +17,36 @@ import { CancelarAlerta } from './componentes/CancelarAlerta';
 
 function App() {
 
-  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  const [orientation, setOrientation] = useState("");
+  // var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  // const [orientation, setOrientation] = useState("");
 
-  useEffect(() => {
-    window.addEventListener("resize", ()=>{
-      if (window.innerWidth<window.innerHeight) {
-        console.log(window.innerWidth<window.innerHeight)
-        setOrientation("PORTRAIT")
-        disableScroll()
-        
-      } else {
-        setOrientation("LANDSCAPE")
-        enableScroll()
-      }
-    })
+  // useEffect(() => {
+  //   window.addEventListener("resize", ()=>{
+  //     if (window.innerWidth<window.innerHeight) {
+  //       console.log(window.innerWidth<window.innerHeight)
+  //       setOrientation("PORTRAIT")
+  //       disableScroll()
+  //
+  //     } else {
+  //       setOrientation("LANDSCAPE")
+  //       enableScroll()
+  //     }
+  //   })
+  //
+  // }, []);
 
-  }, []);
 
-
-  useEffect(() => {
-      if (window.innerWidth<window.innerHeight) {
-        console.log(window.innerWidth<window.innerHeight)
-        setOrientation("PORTRAIT")
-        disableScroll()
-      } else {
-        setOrientation("LANDSCAPE")
-        enableScroll()
-    
-      }},[]
-    );
+  // useEffect(() => {
+  //     if (window.innerWidth<window.innerHeight) {
+  //       console.log(window.innerWidth<window.innerHeight)
+  //       setOrientation("PORTRAIT")
+  //       disableScroll()
+  //     } else {
+  //       setOrientation("LANDSCAPE")
+  //       enableScroll()
+  //
+  //     }},[]
+  //   );
 
 
     var keys = {37: 1, 38: 1, 39: 1, 40: 1};
@@ -102,18 +102,18 @@ useEffect(() => {
     <HeaderTrack></HeaderTrack>
 
 <div className='justify-content-center'>
-<Modal show={orientation == "PORTRAIT" ? true : false} fullscreen={true} className="w-100">
-            <Modal.Body>
-             <div className='turnAlert text-center'>
-            <div>
-              <h1>{isMobile ? "Para melhor experiência, vire o aparelho." : "Para melhor experiência, utilize a tela cheia do seu computador."}</h1>
-              <img src={isMobile ? turnSVG : turnPCSVG}></img>
-            </div>
-             </div>
-            </Modal.Body>
-            <Modal.Footer>
-            </Modal.Footer>
-            </Modal>
+{/*<Modal show={orientation == "PORTRAIT" ? true : false} fullscreen={true} className="w-100">*/}
+{/*            <Modal.Body>*/}
+{/*             <div className='turnAlert text-center'>*/}
+{/*            <div>*/}
+{/*              <h1>{isMobile ? "Para melhor experiência, vire o aparelho." : "Para melhor experiência, utilize a tela cheia do seu computador."}</h1>*/}
+{/*              <img src={isMobile ? turnSVG : turnPCSVG}></img>*/}
+{/*            </div>*/}
+{/*             </div>*/}
+{/*            </Modal.Body>*/}
+{/*            <Modal.Footer>*/}
+{/*            </Modal.Footer>*/}
+{/*            </Modal>*/}
             </div>
 
 

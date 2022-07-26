@@ -103,22 +103,7 @@ export function ListaDisciplinas(){
       //Faz get Disciplinas
       React.useEffect(async () => {
         window.onbeforeunload = function() { 'some function that does not reload the page' }
-         
-            // try { 
-            //       if (data.length == 0){
-            //         const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
-            //         {
-            //           method : 'GET',
-            //           headers : {"Content-Type": "application/json"}
-            //         }).then();
-            //         const json = await response.json()
-            //         setData(json)
-            //       }
-            //           } catch (error) {
-            //       console.log("error", error);
-            //           }
 
-                  
                   if (data.length == 0){
                     const controller = new AbortController()
 
@@ -126,13 +111,17 @@ export function ListaDisciplinas(){
                     const timeoutId = setTimeout(() => controller.abort(), 5000)
 
 
-                    const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
+                    const response = await fetch('http://localhost:8071/api/disciplina',
                     {
                       signal: controller.signal,
                       method : 'GET',
-                      headers : {"Content-Type": "application/json"},
+                      headers : {"Content-Type": "application/json",
+                      "Access-Control-Allow-Origin": "*",
+                      "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+                    },
                       
-                    })
+                    }).catch("Erro")
                     .then((response) => response.json())
                     .then(response => {
                       setData(response)
@@ -141,32 +130,7 @@ export function ListaDisciplinas(){
                     .catch(()=> setResultadoChamada('OFF'));
                     return () => {};
                   }
-                      
 
-
-
-
-                        // if (data.length == 0){
-                        //   const response = await fetch('https://ufabc-track.herokuapp.com/api/disciplina',
-                        //   {
-                        //     method : 'GET',
-                        //     headers : {"Content-Type": "application/json"}
-                        //   }).then(async response =>{
-
-                        //     if (response.status ==200){
-                        //       const json = await response.json()
-                        //       setData(json)
-                        //     }
-                        //     else{
-                        //      console.log("Fora do periodo de matricula")
-                        //     }
-
-                    
-                        //     // console.log(p.json)
-                        //   }).catch((e)=>console.log(e));
-                        //   // const json = await response.json()
-                        //   // setData(json)
-                        // }
           },[]);
 
 
@@ -187,7 +151,7 @@ export function ListaDisciplinas(){
         myElement.innerHTML = base +  '   <br/><span class="badge bg-warning text-dark">ENVIANDO</span>'
         // console.log(myElement.innerHTML)
 
-        fetch('https://ufabc-track.herokuapp.com/api/alerta', {
+        fetch('http://localhost:8071/api/alerta', {
           method : 'POST',
           headers : {"Content-Type": "application/json"},
           body: str
@@ -211,9 +175,6 @@ export function ListaDisciplinas(){
           }, 3000);
           }
         })
-
-
-        
       })
 
       }    
@@ -257,7 +218,7 @@ export function ListaDisciplinas(){
           },[data,periodo,campus,nome]);
 
 
-          function table(){
+          function generateBigTable(){
            
               
             return (
@@ -279,8 +240,92 @@ export function ListaDisciplinas(){
             )
 
           }
-       
-            return (
+
+    function generateSmallTable(){
+
+
+        return (
+            <>
+                { disciplinas.map(item =>
+                    (<tr key={item.identificadorUFABC} className="d-flex">
+                        <td className="">
+                            <div className="d-flex align-items-center w-100 h-100">
+                                <input type="checkbox" checked={checkedState.get(item.identificadorUFABC)[0]} id={"checkbox_"+item.identificadorUFABC} className="buttonSmallTable" value={item.identificadorUFABC} onChange={() => handleCheck(item.identificadorUFABC)}/>
+                            </div>
+                              </td>
+                        <td className="text-start text-wrap smallTableParent w-100 ">
+                            <div className="smallTableContent smallTableTitle smallTableHeader">
+                                {item.nomeDisciplina.substring(0, item.nomeDisciplina.indexOf('-'))}
+                            </div>
+                            <div className="smallTableContent smallTableQuantity">
+                                Vagas disponíveis <br/>
+                                {item.vagasDisponiveis}/{item.vagasDisponibilizadas}
+                            </div>
+                            <div className="smallTableContent smallTableFlexContainer">
+                                <div>
+                                    {item.periodo}
+                                </div>
+                                <div>
+                                    {campusResumido(item.campus)}
+                                </div>
+                                <div>
+                                    {item.creditos} Créditos
+                                </div>
+                            </div>
+                        </td>
+                    </tr>)
+                )}
+            </>
+        )
+
+    }
+
+    function showBigTable() {
+        return (<>
+
+            <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom " data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable">
+                <thead className="sticky-top bg-white border-black">
+                <tr>
+                    <th className="p-3 cursor-pointer"></th>
+                    <th className='disciplina'>Disciplina</th>
+                    <th className='position-sticky'>Período</th>
+                    <th>Vagas Liberadas</th>
+                    {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
+                    <th>Vagas Disponiveis</th>
+                    {width >= breakpoint ? <th>Créditos</th> : <></>}
+                    {width >= breakpoint ? <th>Códigos</th> : <></>}
+                    <th>Campus</th>
+                </tr>
+                </thead>
+                <tbody>
+                {resultadoChamada != 'OFF' ? generateBigTable() : ''}
+                {generateBigTable()}
+                </tbody>
+            </table>
+
+
+
+        </>)
+
+
+
+    }
+
+    function showSmallTable() {
+        return (
+
+            <>
+                <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom d-flex" data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable">
+                    <tbody>
+                    {resultadoChamada != 'OFF' ? generateSmallTable() : ''}
+                    {generateSmallTable()}
+                    </tbody>
+                </table></>
+
+        )
+    }
+
+    return (
               <>
         
         <div className='font-size j'>
@@ -323,25 +368,10 @@ export function ListaDisciplinas(){
       </div>
               
               <div className="d-flex justify-content-center">
-              <table className="table table-striped shadow-sm p-3 mb-5 w-75 rounded-bottom " data-toggle="table" data-pagination="true" data-mobile-responsive="true" id="myTable"> 
-              <thead className="sticky-top bg-white border-black">
-                    <tr>
-                      <th className="p-3 cursor-pointer"></th>
-                      <th className='disciplina'>Disciplina</th>
-                      <th className='position-sticky'>Período</th>
-                      <th>Vagas Liberadas</th>
-                      {width >= breakpoint ? <th>Vagas Ingressantes</th> : <></>}
-                      <th>Vagas Disponiveis</th>
-                      {width >= breakpoint ? <th>Créditos</th> : <></>}
-                      {width >= breakpoint ? <th>Códigos</th> : <></>}
-                      <th>Campus</th>
-                    </tr>
-              </thead>
-              <tbody>
-              {resultadoChamada != 'OFF' ? table() : ''}
-              {table()}
-              </tbody>
-              </table>
+
+                  {width >= breakpoint ? showBigTable() : showSmallTable()}
+
+
               
               </div>
               <div className='d-flex justify-content-center '>
